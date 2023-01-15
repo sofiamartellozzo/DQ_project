@@ -75,18 +75,19 @@
 
 %----------------------------------------------------%
 \section*{Introduction}
-In this project is faced a Classification problem , with two different Machine Learning algorithm, after an imputation of data on the datasets provided, where it encounter NaN values, with two different techniques.\\\\
-The dataset is composed of 2001 samples and 17 labels: 'x-box', 'y-box', 'width', 'high’,  'onpix', 'x-bar', 'y-bar', 'x2bar', 'y2bar', 'xybar', 'x2ybr', 'xy2br', 'x-ege', 'xegvy', 'y-ege', 'yegvx' and 'letter' , that is the target  to predict. The values of the different labels are almost all around 0 and 15, while the target are 26 different letters: 'L', 'F', 'Z', 'T', 'U', 'H', 'Y', 'B', 'R', 'O', 'X', 'S', 'M', 'P', 'K', 'Q', 'V', 'C', ‘W’,  'N', 'G', 'J', 'E', 'A', 'I', 'D' .
+The goal of this project is to evaluate how different imputation techniques influence the performance of different classification algorithms on a given dataset.\\\\
+The dataset is composed of 2001 samples and 17 labels: 'x-box', 'y-box', 'width', 'high’,  'onpix', 'x-bar', 'y-bar', 'x2bar', 'y2bar', 'xybar', 'x2ybr', 'xy2br', 'x-ege', 'xegvy', 'y-ege', 'yegvx' and 'letter' , that is the target  to predict. The values of the different labels are almost all around 0 and 15, while the target are 26 different letters: 'L', 'F', 'Z', 'T', 'U', 'H', 'Y', 'B', 'R', 'O', 'X', 'S', 'M', 'P', 'K', 'Q', 'V', 'C', ‘W’,  'N', 'G', 'J', 'E', 'A', 'I', 'D' .\\
+The dataset is then manipulated in order to obtain various datasets with different amounts of missing (NaN) values. These values are then injected with two different imputation techniques since ML algorithms cannot be executed on incomplete datasets. \\\\The obtained results are then compared in order to evaluate how different imputation techniques influence the ML algorithms' performances.
 
 %---------------------------------------------------%
 \section{Setup choices}
 
 \subsection{Chosen ML algorithm}\label{sec:model}
-Supervised learning learns a function to make prediction of a defined label based on the input data. It can be either classifying data into a category (classification problem) or forecasting an outcome (regression algorithms).\\
-Classification model identifies which category an object belongs to whereas regression model predicts a continuous output. Sometimes there is an ambiguous line between classification algorithms and regression algorithms.\\
-Many algorithms can be used for both classification and regression, and classification is just regression model with a threshold applied. When the number is higher than the threshold it is classified as true while lower classified as false. \\\\
-Here follows the description of the two ML algorithm selected to solve the Classification problem on the {\texttt letter} dataset.
-
+Supervised learning learns a function to make a prediction of a defined label based on the input data. It can be either classifying data into a category (classification problem) or forecasting an outcome (regression algorithms).\\
+A classification model identifies which category an object belongs to whereas a regression model predicts a continuous output. Sometimes there is an ambiguous line between classification algorithms and regression algorithms.\\
+Many algorithms can be used for both classification and regression, and classification is just a regression model with a threshold applied. When the number is higher than the threshold it is classified as true while lower classified as false. \\\\
+Here follows the description of the two ML algorithms selected to solve the classification problem on the {\texttt letter} dataset.
+\newpage
 \subsubsection*{Support Vector Classifier (SVC)}
 \begin{multicols}{2}
 \begin{figure}[H]
@@ -99,8 +100,8 @@ Here follows the description of the two ML algorithm selected to solve the Class
 Support Vector Classifier (SVC) is developed based on Support Vector Machine (SVM): a type of deep learning algorithm, builds a learning model that assigns new examples to one group or another. By these functions, SVMs are called a non-probabilistic, binary linear classifier. SVM finds the best way to classify the data based on the position in relation to a border between positive class and negative class. This border is known as the hyperplane which maximize the distance between data points from different classes.
 \end{multicols}
 \begin{center}
-How is implemented in python:
 \begin{Python}
+# python implementation 
 from sklearn.svm import SVC
 svc = SVC()
 svc.fit(X_train, y_train)
@@ -108,12 +109,10 @@ y_pred = svc.predict(X_test)
 \end{Python}
 \end{center}
 
-
-\newpage
 \subsubsection*{Decision Tree Classifier}
 \begin{multicols}{2}
-A decision tree is a flowchart-like tree structure where an internal node represents feature(or attribute), the branch represents a decision rule, and each leaf node represents the outcome. It partitions the tree in recursively manner call recursive partitioning. This flowchart-like structure helps you in decision making.\\Decision Tree is a white box type of ML algorithm. It shares internal decision-making logic, which is not available in the black box type of algorithms such as Neural Network. Its training time is faster compared to the neural network algorithm.\\ Decision tree builds tree branches in a hierarchy approach and each branch can be considered as an if-else statement. The branches develop by partitioning the dataset into subsets based on most important features. Final classification happens at the leaves of the decision tree.
  \columnbreak
+A decision tree is a flowchart-like tree structure where internal nodes represent features (or attributes), branches represent decision rules, and leaf nodes represent outcomes. The tree is partitioned in a recursive manner called recursive partitioning. This flowchart-like structure helps in decision making.\\A decision tree is a white box type of ML algorithm. It shares internal decision-making logic, which is not available in the black box type of algorithms such as Neural Network. Its training time is faster compared to the neural network algorithm.\\ A decision tree builds tree branches in a hierarchy approach and each branch can be considered as an if-else statement. The branches are developed by partitioning the dataset into subsets based on most important features. Final classification happens at the leaves of the decision tree.
 \begin{figure}[H]
         \begin{center}
         \includegraphics[width=0.5\textwidth]{DecTree.png}
@@ -121,8 +120,8 @@ A decision tree is a flowchart-like tree structure where an internal node repres
     \end{figure} 
 \end{multicols}
 \begin{center}
-    How is implemented in python:
 \begin{Python}
+# python implementation 
 from sklearn.tree import DecisionTreeClassifier
 dtc = DecisionTreeClassifier()
 dtc.fit(X_train, y_train)
@@ -133,18 +132,18 @@ y_pred = dtc.predict(X_test)
 %----------------------------------------------------%
 
 \subsection{Chosen ML performance evaluation metrics} \label{sec:performances}
-In this section is provided a simple description of different metrics used to evaluate the performance of the algorithms developed for the classification. 
+In this section is provided a simple description of different metrics used to evaluate the performance of the algorithms implemented for the classification. 
 
 \subsubsection*{Confusion Matrix}
-A confusion matrix is an extremely useful tool, used to define the performance of a classification algorithm, especially in multi-class classification problems. It is a matrix that compares the number of predictions for each class that are correct and those that are incorrect. Each row of the matrix represents the instances in a predicted class, while each column represents the instances in an actual class (or vice versa).\\ The name stems from the fact that it makes it easy to see if the system is confusing two classes (i.e. commonly mislabeling one as another).  
-In a confusion matrix, there are 4 numbers to pay attention to:
+A confusion matrix is used to define the performance of a classification algorithm. It is an especially useful tool in multi-class classification problems. It is a matrix that compares the number of predictions for each class that are correct and those that are incorrect. Each row of the matrix represents the instances in a predicted class, while each column represents the instances in an actual class (or vice versa).\\ The name stems from the fact that it makes it easy to see if the system is confusing two classes (i.e. commonly mislabeling one as another).  
+In a confusion matrix, there are 4 values to pay attention to:
 \begin{itemize}
     \item True positives: The number of positive observations the model correctly predicted as positive.
     \item False positive: The number of negative observations the model incorrectly predicted as positive.
     \item True negative: The number of negative observations the model correctly predicted as negative.
     \item False negative: The number of positive observations the model incorrectly predicted as negative.
 \end{itemize}
-An example of confusion matrix in this project is as follows:
+The following is an example of confusion matrix taken from this project:
 \begin{figure}[H]
         \begin{center}
         \includegraphics[width=0.33\textwidth]{cm.png}
@@ -152,13 +151,13 @@ An example of confusion matrix in this project is as follows:
 \end{figure} 
 
 \subsubsection*{Accuracy}
-The overall accuracy of a model is simply the number of correct predictions divided by the total number of predictions. An accuracy score will give a value between 0 and 1, a value of 1 would indicate a perfect model.
+The overall accuracy of a model is the number of correct predictions divided by the total number of predictions. An accuracy score will give a value between 0 and 1, a value of 1 indicating a perfect model.
 \begin{center}
     \begin{math}
 Accuracy = \frac{\mbox{Correct Prediction}}{\mbox{Total Predictions}}
 \end{math}
 \end{center}
-It is calculated on all the predicted value (overall accuracy of the model) and also specifically on each label predicted. 
+It is calculated on all the predicted values (overall accuracy of the model) and also specifically on each label predicted. 
 
 \subsubsection*{Precision}
 Precision measures how good the model is at correctly identifying the positive class. In other words out of all predictions for the positive class how many were actually correct?
@@ -169,7 +168,7 @@ Precision measures how good the model is at correctly identifying the positive c
 \end{center}
 
 \subsubsection*{Recall}
-Recall tell us how good the model is at correctly predicting all the positive observations in the dataset. However, it does not include information about the false positives. 
+Recall measures how good the model is at correctly predicting all the positive observations in the dataset. However, it does not include information about the false positives. 
 \begin{center}
     \begin{math}
         Recall = \frac{\mbox{True Positive}}{\mbox{True Positive} + \mbox{False Negative}}
@@ -193,16 +192,16 @@ The F1 score is the harmonic mean of precision and recall. The F1 score will giv
 \subsection{Imputation techniques selected}
 Imputation is a technique used to handle missing values in a dataset. It involves replacing missing values with estimated ones, in order to make the data usable for analysis or modeling. There are several imputation techniques that can be used, depending on the nature of the data and the purpose of the analysis.
 \subsubsection*{Mode Imputation}
-This technique replaces the missing value with the mode of the non-missing values in the same column. It is a simple and straightforward method, but it can introduce bias in the data if the missing values are not missing at random. The steps to perform mode imputation are:
+Mode imputation replaces the missing value with the mode of the non-missing values in the same column. It is a simple and straightforward method, but it can introduce bias in the data if the missing values are not missing at random. The steps to perform mode imputation are:
 \begin{enumerate}
     \item Identify the missing values in the dataset.
     \item Compute the mode of the feature for the non-missing values.
     \item Replace the missing value with the computed mode.
 \end{enumerate}
-Mode imputation is a good choice when the data has a large number of observations for the mode. However, when the data is not missing completely at random, mode imputation can introduce bias into the data and can be misleading. It is important to note that this method will only work when the variable is categorical or ordinal, if the variable is continuous it will not work. 
+Mode imputation is a good choice when the data has a large number of observations for the mode. It is important to note that this method will only work when the variable is categorical or ordinal, if the variable is continuous it will not work. 
 
 \subsubsection*{K-Nearest Neighbors (KNN) Imputation}
-It is a form of sample imputation that uses the values of similar cases to fill in the missing data. The idea behind KNN imputation is that a point value can be estimated by the average or the mode of the k-nearest points where k is a user-specified parameter. The steps to perform KNN imputation are:
+KNN Imputation is a form of sample imputation that uses the values of similar cases to fill in the missing data. The idea behind KNN imputation is that a point value can be estimated by the average or the mode of the k-nearest points where k is a user-specified parameter. The steps to perform KNN imputation are:
 \begin{enumerate}
     \item Identify the missing values in the dataset.
     \item For each missing value, find the k-nearest neighbors based on a distance metric, such as Euclidean distance.
@@ -211,26 +210,28 @@ It is a form of sample imputation that uses the values of similar cases to fill 
 \end{enumerate}
 KNN imputation is a non-parametric method, which means that it does not make any assumptions about the underlying distribution of the data.\\
 It is important to note that the choice of k is crucial for the performance of the KNN imputation. If k is too small, the imputed values will be very sensitive to the presence of outliers, if k is too large, the imputed values will be too similar to the overall mean of the variable.\\
-Since in this case no outliers are present in the dataset, the choice of k end up in a small value: exactly 5.\\\\
+Choosing the number of neighbors in a KNN classifier can be done through experimentation. A common approach is to try a range of values for the number of neighbors and evaluate the performance of the classifier using a metric such as accuracy or F1-score. The value for k that results in the best performance is then chosen as the final value for the model.
+Since in this case no outliers are present in the dataset, the choice of k ends up in a range of small values, between 3 and 6. With different trials the one that achieves the best results (higher accuracy) is k equal to 3.\\\\
 It is important to notice that imputation can introduce bias into the data, so it is important to evaluate the performance of the imputation method and the impact on the analysis or model.
 
-
+\newpage
 %---------------------------------------------------%
 \section{Pipeline implementation}
-Here is explained step by step, how t
+This chapter provides a step by step explanation of how the pipline was implemented.
 \begin{enumerate}
-    \item After downloaded the dataset in the Anaconda environment, it is explored to better understand what it countains. As said before it countains 2001 sample of 25 different integer feature and a label, that is a letter.
+    \item After downloading the dataset in the Anaconda environment, explore it to better understand what it contains. As previously stated, it contains 2001 sample of 25 different integer feature and a label, that is a letter.
     \item \begin{multicols}{2}
-    A histogram is a graphical representation of the distribution of a dataset. It is a way to visualize the frequency of different values in a dataset. In the case of the 'letter' column, a histogram shows the frequency of each letter in the column.\\ Additionally, you can also see if the data is balanced or imbalanced. A balanced dataset would have similar frequencies for each letter, while an imbalanced dataset would have some letters that appear more frequently than others.\\From the image reported on the right is possible to see that this dataset is not much imbalanced.
+    An histogram is a graphical representation of the distribution of a dataset that visualizes the frequency of different values in a dataset. In the case of the 'letter' column, a histogram shows the frequency of each letter in the column.\\ Additionally, it is possible to see if the data is balanced or not. A balanced dataset would have similar frequencies for each letter, while an imbalanced dataset would have some letters that appear more frequently than others.\\From the image reported on the right is possible to see that this dataset is slightly unbalanced.
         \columnbreak
         \begin{figure}[H]
             \begin{center}
             \includegraphics[width=0.34\textwidth]{histogram.png}
             \caption{Histogram of targets}
+            \label{fig:hist}
             \end{center}
         \end{figure} 
     \end{multicols}
-    \item \begin{multicols}{2}A grouped by chart, also known as a grouped bar chart or a grouped column chart, is a type of chart that is used to compare the values of different categories within a dataset. It is typically used to compare the values of a single variable across different groups or categories.\\A grouped by chart is similar to a regular bar chart or column chart, but instead of having one bar or column for each data point, it has multiple bars or columns for each data point, grouped together by category.\\Grouped by chart are useful for showing the relationship between multiple variables, especially when the values are being compared across several groups or categories.
+    \item \begin{multicols}{2}A grouped by chart, also known as a grouped bar chart or a grouped column chart, is a type of chart that is used to compare the values of different categories within a dataset. It is typically used to compare the values of a single variable across different groups or categories.\\ A grouped by chart is similar to a regular bar chart or column chart, but instead of having one bar or column for each data point, it has multiple bars or columns for each data point, grouped together by category.\\Grouped by chart are useful for showing the relationship between multiple variables, especially when the values are being compared across several groups or categories.
     \columnbreak
     \begin{figure}[H]
             \begin{center}
@@ -246,27 +247,28 @@ Here is explained step by step, how t
             \begin{center}
             \includegraphics[width=0.4\textwidth]{boxplot.png}
             \caption{Box Plot for 'y-box' feature}
+            \label{fig:boxplot}
             \end{center}
         \end{figure}    
     \end{multicols} 
-    \item At first inject randomly, in the original dataset provided, some NaN values, with the script provided.
-    \item Save in two list a copy of the 5 different dirty dataset generated, each list for each imputation technique. Each dataset differentiate from the original one by the percentage of null values: 50\%, 40\%, 30\%, 20\%, 10\% .
-    \item Apply both the two imputation technique on all the generated dataset, in order to achive a completeness of 100\%. 
-    \item Evaluate the imputation techniques by calculating the accuracy, comparing the generated datasets with the original one.
+    \item At first, inject randomly in the original dataset provided some NaN values with the provided script.
+    \item Save in two lists a copy of the 5 different dirty dataset generated, each list for each imputation technique. Each dataset differentiates from the original one by the percentage of null values: 50\%, 40\%, 30\%, 20\%, 10\% .
+    \item Apply both imputation techniques on all the generated datasets, in order to achieve a completeness of 100\%. 
+    \item Evaluate the imputation techniques by calculating the accuracy, comparing the generated datasets with the original one. Based on this metric, the k value that gave the best results for the KNN imputation was chosen.
     \item Split all the 10 datasets in Train and Test set, with the function provided by the library \texttt{from sklearn.model\_selection}
-    \item Perform the classification on all the datasets with the two algorithm chosen: SVC and Decision Tree Classifier (explained in \ref{sec:model})
+    \item Perform the classification on all the datasets with the two implemented algorithms: SVC and Decision Tree Classifier (explained in \ref{sec:model})
     \item Evaluate the performance of the ML algorithm on the results obtained \ref{sec:performances}
 \end{enumerate}
 
 
 %---------------------------------------------------%
 \section{Results}
-In this section an overall view of the results obtained.
+This section provides an overview of the obtained results.
 \subsection*{Accuracy on Imputation techniques}
 Concerning the Imputation techniques the results obtained are the following:\\
 Mode Imputation:
 \begin{center}
-    \begin{table}[h]
+    \begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
  & x-box & y-box & width & high & onpix & x-bar & y-bar & x2bar & y2bar \\ \hline
@@ -277,7 +279,7 @@ dataset4 & 84.4\% & 83.3\% & 84.6\% & 83.6\% & 83.5\% & 85.0\% & 86.1\% & 83.7\%
 dataset5 & 91.8\% & 91.6\% & 92.4\% & 91.8\% & 92.1\% & 93.5\% & 93.2\% & 90.7\% & 91.4\% \\ \hline
 \end{tabular}
 \end{table}
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
  & xybar & x2ybr & xy2br & x-ege & xegvy & y-ege & yegvx & total \\ \hline
@@ -289,43 +291,44 @@ dataset5 & 92.5\% & 92.8\% & 92.4\% & 91.5\% & 93.7\% & 92.1\% & 93.9\% & 92.3\%
 \end{tabular}
 \end{table}
 \end{center}
-The best result is obtained in the first dataset (the one with 50\% of completeness) since, with the imputation are injected 12.5\% of correct values, generating a dataset of 62.5\% of accuracy in the hole. Not taking into account the initial condition of the data, this score is not a really good one, it contains a significant number of wrong data.\\\\
+The best results are obtained in the first dataset (the one with 50\% of completeness) since, with the imputation are injected 12.5\% of correct values, generating a dataset of 62.5\% of accuracy overall. While the obtained accuracy is satisfying, the improvement on the incomplete dataset is minimal.\\\\
 KNN Imputation:
 \begin{center}
-    \begin{table}[h]
+    \begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 & x-box & y-box & width & high & onpix & x-bar & y-bar & x2bar & y2bar \\ \hline
-dataset1 & 52.3\% & 50.5\% & 52.0\% & 52.3\% & 51.5\% & 51.2\% & 54.4\% & 52.4\% & 51.7\% \\ \hline
-dataset2 & 62.4\% & 60.7\% & 61.8\% & 60.5\% & 62.7\% & 63.8\% & 63.5\% & 62.5\% & 63.9\% \\ \hline
-dataset3 & 72.0\% & 69.8\% & 74.4\% & 71.1\% & 72.8\% & 73.7\% & 75.0\% & 69.8\% & 73.2\% \\ \hline
-dataset4 & 81.8\% & 81.8\% & 82.5\% & 81.2\% & 82.2\% & 80.9\% & 82.6\% & 82.0\% & 82.1\% \\ \hline
-dataset5 & 90.7\% & 90.9\% & 90.5\% & 90.3\% & 91.7\% & 91.9\% & 91.3\% & 90.1\% & 91.0\% \\ \hline
+dataset1 & 54.6\% & 50.6\% & 53.3\% & 53.8\% & 54.1\% & 51.4\% & 55.1\% & 53.0\% & 53.4\% \\ \hline
+dataset2 & 64.2\% & 61.6\% & 63.1\% & 61.9\% & 64.9\% & 64.0\% & 65.3\% & 63.8\% & 64.9\% \\ \hline
+dataset3 & 73.3\% & 71.1\% & 74.8\% & 72.6\% & 74.7\% & 75.6\% & 77.0\% & 71.3\% & 74.4\% \\ \hline
+dataset4 & 82.6\% & 82.7\% & 83.7\% & 82.5\% & 83.7\% & 82.9\% & 84.6\% & 82.9\% & 83.3\% \\ \hline
+dataset5 & 91.8\% & 91.3\% & 91.8\% & 91.5\% & 92.6\% & 93.0\% & 92.4\% & 91.7\% & 92.0\% \\ \hline
 \end{tabular}
 \end{table}
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 & xybar & x2ybr & xy2br & x-ege & xegvy & y-ege & yegvx & total \\ \hline
-dataset1 & 50.3\% & 51.6\% & 54.3\% & 51.1\% & 55.5\% & 53.0\% & 53.4\% & 52.3\% \\ \hline
-dataset2 & 61.7\% & 61.6\% & 62.0\% & 62.9\% & 63.5\% & 61.1\% & 64.3\% & 62.4\% \\ \hline
-dataset3 & 72.3\% & 72.3\% & 73.2\% & 73.2\% & 74.6\% & 72.6\% & 74.4\% & 72.8\% \\ \hline
-dataset4 & 81.8\% & 81.1\% & 82.0\% & 81.7\% & 85.6\% & 82.5\% & 82.9\% & 82.2\% \\ \hline
-dataset5 & 90.2\% & 92.1\% & 91.2\% & 91.2\% & 92.2\% & 92.1\% & 92.5\% & 91.2\% \\ \hline
+dataset1 & 51.4\% & 52.4\% & 54.7\% & 53.5\% & 58.8\% & 53.5\% & 54.5\% & 53.6\% \\ \hline
+dataset2 & 62.5\% & 63.5\% & 63.8\% & 64.0\% & 65.5\% & 62.8\% & 65.3\% & 63.8\% \\ \hline
+dataset3 & 74.1\% & 73.6\% & 74.9\% & 75.5\% & 77.7\% & 74.4\% & 77.0\% & 74.5\% \\ \hline
+dataset4 & 84.1\% & 83.3\% & 83.9\% & 84.0\% & 86.9\% & 84.8\% & 84.3\% & 83.7\% \\ \hline
+dataset5 & 91.6\% & 93.0\% & 92.3\% & 92.7\% & 92.9\% & 92.9\% & 93.2\% & 92.3\% \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
-In this case the technique performs worst, imputing just a 2\% of correct data.
+In this case the technique obtains worse performances, imputing just a 3\% of correct data.
 
 \subsection*{Performance of ML algorithms}
-The evaluation of the chosen algorithms is done through the following performance metrix (explained in \ref{sec:performances}).\\
+The evaluation of the implemented ML algorithms is done through the following performance metrics (explained in \ref{sec:performances}).\\
 For all the following performance metrics is reported the results of the prediction on the dataset with Mode imputation followed by the results on the dataset with KNN imputation.
 \subsubsection*{Accuracy}
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
  & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
-SVM & 0.319 & 0.377 & 0.499 & 0.596 & 0.693 \\ \hline
+SVM & 0.319 & 0.377 & 0.499 & 0.596 & 0.693 \\
+\hline
 Decision Tree & 0.317 & 0.314 & 0.397 & 0.479 & 0.601 \\ \hline
 \end{tabular}\\
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -334,7 +337,7 @@ Decision Tree & 0.317 & 0.314 & 0.397 & 0.479 & 0.601 \\ \hline
 SVM & 0.319 & 0.377 & 0.499 & 0.596 & 0.693 \\ \hline
 Decision Tree & 0.322 & 0.302 & 0.392 & 0.466 & 0.584 \\ \hline
 \end{tabular}
-\end{table}The results are really similar: both the ML algorithm performs quite bad (30\% of accuracy) with data less correct. Between the two imputation technique SVM perform exactly the same, the Tecision Tree a little bit worst with the KNN imputation.
+\end{table}The results are really similar: both ML algorithms perform quite poorly (30\% of accuracy) in the first dataset. While SVM has the same performances with both imputation techniques, the Decision Tree obtains a slightly worse performance with the KNN imputation.
 \subsubsection*{Precision}
 \begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -350,7 +353,7 @@ SVM & 0.336 & 0.420 & 0.567 & 0.638 & 0.713 \\ \hline
 Decision Tree & 0.321 & 0.298 & 0.391 & 0.465 & 0.579 \\ \hline
 \end{tabular}
 \end{table}
-The same observation can be done for the Precision of the algorithm.
+The same observations can be done for the Precision of the algorithm.
 \subsubsection*{Recall}
 \begin{table}[H]
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -381,19 +384,10 @@ SVM & 0.301 & 0.367 & 0.490 & 0.589 & 0.679 \\ \hline
 Decision Tree & 0.311 & 0.289 & 0.375 & 0.456 & 0.569 \\ \hline
 \end{tabular}
 \end{table}
+Even for Recall and F1-score we can say the same as before.
 \subsubsection*{Confusion Matrix}
-In the notebook is possible to visualize all the confusion matrix generated to evaluate the prediction. From them it is possible to see that not all the labels are wrong classified: some of them, for example 'L' , have good results. In other cases some label are even never correctly classified. 
-
-
-
-
-
-
-
-
-description of the main result obtained\\
-b.	ML performance comparison between the imputation techniques you have implemented
-
-
-
+In the notebook is possible to visualize all the confusion matrices generated to evaluate the prediction. From them it is possible to see that not all the labels are wrongly classified: some of them, for example 'L' , have good results. In other cases some labels are even never correctly classified.\\\\
+The reason of these results could be in the fact that some classes have a really similar distribution of the values. As we can see by the Box Plot \ref{fig:boxplot} the feature 'y-box' has really similar distribution of the data for almost all the labels. In this situation the classifier could have more difficulties in predicting the class correctly. One possible solution could be normalizing all the data before computing the task with the ML algorithms.\\\\
+From the histogram \ref{fig:hist} plotted also for each feature, it is possible to observe that there is not a definite distribution of the data. Many of them look like a Gaussian distribution, but with the mean value 'oversampled', breaking any possible pattern. Another possible solution could be to standardize each feature. Since many features look very similar, another possible solution to improve the performance of the algorithms could be performing a feature selection technique. There are many feature selection techniques, like filter or wrapper,  whose goal is to improve the performance of the model, by reducing the dimensionality of the data and removing irrelevant or redundant features. The choice of the feature selection technique depends on the characteristics of the data and the specific requirements of the problem. It is also common to use an ensemble of different feature selection techniques to find the most informative subset of features.\\
+Finally, given the unbalanced nature of the dataset, implementing data augmentation techniques could results in better performances in classifications thanks to a more balanced dataset. 
 \end{document}
