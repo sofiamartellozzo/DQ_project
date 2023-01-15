@@ -261,7 +261,9 @@ Here is explained step by step, how t
 
 %---------------------------------------------------%
 \section{Results}
-Concerning the Imputation techniques the results obtained are the following:\\\\
+In this section an overall view of the results obtained.
+\subsection*{Accuracy on Imputation techniques}
+Concerning the Imputation techniques the results obtained are the following:\\
 Mode Imputation:
 \begin{center}
     \begin{table}[h]
@@ -275,7 +277,6 @@ dataset4 & 84.4\% & 83.3\% & 84.6\% & 83.6\% & 83.5\% & 85.0\% & 86.1\% & 83.7\%
 dataset5 & 91.8\% & 91.6\% & 92.4\% & 91.8\% & 92.1\% & 93.5\% & 93.2\% & 90.7\% & 91.4\% \\ \hline
 \end{tabular}
 \end{table}
-
 \begin{table}[h]
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -301,7 +302,8 @@ dataset3 & 72.0\% & 69.8\% & 74.4\% & 71.1\% & 72.8\% & 73.7\% & 75.0\% & 69.8\%
 dataset4 & 81.8\% & 81.8\% & 82.5\% & 81.2\% & 82.2\% & 80.9\% & 82.6\% & 82.0\% & 82.1\% \\ \hline
 dataset5 & 90.7\% & 90.9\% & 90.5\% & 90.3\% & 91.7\% & 91.9\% & 91.3\% & 90.1\% & 91.0\% \\ \hline
 \end{tabular}
-
+\end{table}
+\begin{table}[h]
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 & xybar & x2ybr & xy2br & x-ege & xegvy & y-ege & yegvx & total \\ \hline
@@ -314,6 +316,76 @@ dataset5 & 90.2\% & 92.1\% & 91.2\% & 91.2\% & 92.2\% & 92.1\% & 92.5\% & 91.2\%
 \end{table}
 \end{center}
 In this case the technique performs worst, imputing just a 2\% of correct data.
+
+\subsection*{Performance of ML algorithms}
+The evaluation of the chosen algorithms is done through the following performance metrix (explained in \ref{sec:performances}).\\
+For all the following performance metrics is reported the results of the prediction on the dataset with Mode imputation followed by the results on the dataset with KNN imputation.
+\subsubsection*{Accuracy}
+\begin{table}[h]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.319 & 0.377 & 0.499 & 0.596 & 0.693 \\ \hline
+Decision Tree & 0.317 & 0.314 & 0.397 & 0.479 & 0.601 \\ \hline
+\end{tabular}\\
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.319 & 0.377 & 0.499 & 0.596 & 0.693 \\ \hline
+Decision Tree & 0.322 & 0.302 & 0.392 & 0.466 & 0.584 \\ \hline
+\end{tabular}
+\end{table}The results are really similar: both the ML algorithm performs quite bad (30\% of accuracy) with data less correct. Between the two imputation technique SVM perform exactly the same, the Tecision Tree a little bit worst with the KNN imputation.
+\subsubsection*{Precision}
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.336 & 0.42 & 0.567 & 0.638 & 0.713 \\ \hline
+Decision Tree & 0.305 & 0.31 & 0.403 & 0.481 & 0.592 \\ \hline
+\end{tabular}\\
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.336 & 0.420 & 0.567 & 0.638 & 0.713 \\ \hline
+Decision Tree & 0.321 & 0.298 & 0.391 & 0.465 & 0.579 \\ \hline
+\end{tabular}
+\end{table}
+The same observation can be done for the Precision of the algorithm.
+\subsubsection*{Recall}
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.307 & 0.365 & 0.487 & 0.586 & 0.679 \\ \hline
+Decision Tree & 0.316 & 0.302 & 0.384 & 0.474 & 0.593 \\ \hline
+\end{tabular}\\
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.307 & 0.365 & 0.487 & 0.586 & 0.679 \\ \hline
+Decision Tree & 0.320 & 0.291 & 0.373 & 0.462 & 0.570 \\ \hline
+\end{tabular}
+\end{table}
+\subsubsection*{F1-score}
+\begin{table}[h]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.301 & 0.367 & 0.490 & 0.589 & 0.679 \\ \hline
+Decision Tree & 0.303 & 0.300 & 0.386 & 0.471 & 0.588 \\ \hline
+\end{tabular}\\
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & dataset1 & dataset2 & dataset3 & dataset4 & dataset5 \\ \hline
+SVM & 0.301 & 0.367 & 0.490 & 0.589 & 0.679 \\ \hline
+Decision Tree & 0.311 & 0.289 & 0.375 & 0.456 & 0.569 \\ \hline
+\end{tabular}
+\end{table}
+\subsubsection*{Confusion Matrix}
+In the notebook is possible to visualize all the confusion matrix generated to evaluate the prediction. From them it is possible to see that not all the labels are wrong classified: some of them, for example 'L' , have good results. In other cases some label are even never correctly classified. 
+
+
+
 
 
 
